@@ -44,7 +44,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+		<!--  https://www.mkyong.com/maven/how-to-add-oracle-jdbc-driver-in-your-maven-local-repository
+		 -->
+		<dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0</version>
+        </dependency>
 	</dependencies>
 
 	<build>

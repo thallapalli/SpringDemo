@@ -18,31 +18,31 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EMPLOYEES_EMPLOYEEID_GENERATOR", sequenceName="EMPLOYEES_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EMPLOYEES_EMPLOYEEID_GENERATOR")
-	@Column(name="EMPLOYEE_ID", unique=true, nullable=false, precision=6)
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="EMPLOYEE_ID")
 	private long employeeId;
 
-	@Column(name="COMMISSION_PCT", precision=2, scale=2)
+	@Column(name="COMMISSION_PCT")
 	private BigDecimal commissionPct;
 
-	@Column(nullable=false, length=25)
 	private String email;
 
-	@Column(name="FIRST_NAME", length=20)
+	@Column(name="FIRST_NAME")
 	private String firstName;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="HIRE_DATE", nullable=false)
+	@Column(name="HIRE_DATE")
 	private Date hireDate;
 
-	@Column(name="LAST_NAME", nullable=false, length=25)
+	@Column(name="JOB_ID")
+	private String jobId;
+
+	@Column(name="LAST_NAME")
 	private String lastName;
 
-	@Column(name="PHONE_NUMBER", length=20)
+	@Column(name="PHONE_NUMBER")
 	private String phoneNumber;
 
-	@Column(precision=8, scale=2)
 	private BigDecimal salary;
 
 	//bi-directional many-to-one association to Department
@@ -50,27 +50,18 @@ public class Employee implements Serializable {
 	private List<Department> departments;
 
 	//bi-directional many-to-one association to Department
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="DEPARTMENT_ID")
 	private Department department;
 
 	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="MANAGER_ID")
 	private Employee employee;
 
 	//bi-directional many-to-one association to Employee
 	@OneToMany(mappedBy="employee")
 	private List<Employee> employees;
-
-	//bi-directional many-to-one association to Job
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="JOB_ID", nullable=false)
-	private Job job;
-
-	//bi-directional many-to-one association to JobHistory
-	@OneToMany(mappedBy="employee")
-	private List<JobHistory> jobHistories;
 
 	public Employee() {
 	}
@@ -113,6 +104,14 @@ public class Employee implements Serializable {
 
 	public void setHireDate(Date hireDate) {
 		this.hireDate = hireDate;
+	}
+
+	public String getJobId() {
+		return this.jobId;
+	}
+
+	public void setJobId(String jobId) {
+		this.jobId = jobId;
 	}
 
 	public String getLastName() {
@@ -197,36 +196,6 @@ public class Employee implements Serializable {
 		employee.setEmployee(null);
 
 		return employee;
-	}
-
-	public Job getJob() {
-		return this.job;
-	}
-
-	public void setJob(Job job) {
-		this.job = job;
-	}
-
-	public List<JobHistory> getJobHistories() {
-		return this.jobHistories;
-	}
-
-	public void setJobHistories(List<JobHistory> jobHistories) {
-		this.jobHistories = jobHistories;
-	}
-
-	public JobHistory addJobHistory(JobHistory jobHistory) {
-		getJobHistories().add(jobHistory);
-		jobHistory.setEmployee(this);
-
-		return jobHistory;
-	}
-
-	public JobHistory removeJobHistory(JobHistory jobHistory) {
-		getJobHistories().remove(jobHistory);
-		jobHistory.setEmployee(null);
-
-		return jobHistory;
 	}
 
 }

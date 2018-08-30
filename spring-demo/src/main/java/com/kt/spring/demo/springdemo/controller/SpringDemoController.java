@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kt.spring.demo.springdemo.entity.Account;
 import com.kt.spring.demo.springdemo.entity.Department;
+import com.kt.spring.demo.springdemo.repository.AccountRepository;
 import com.kt.spring.demo.springdemo.repository.DepartmentRepository;
 
 
@@ -21,6 +24,8 @@ import com.kt.spring.demo.springdemo.repository.DepartmentRepository;
 public class SpringDemoController {
 	@Autowired
 	DepartmentRepository departmentRepository;
+	@Autowired
+	AccountRepository accountRepository;
 	@PutMapping("/springdemo/hr/department/save")
 	public Department saveDepartment(@RequestBody Department department) {
 		// TODO Auto-generated method stub
@@ -44,6 +49,22 @@ public class SpringDemoController {
 	public Optional<Department> findById(@PathVariable Long id) {
 		// TODO Auto-generated method stub
 		return departmentRepository.findById(id);
+	}
+	@GetMapping("/springdemo/hr/account/{username}/detail")
+	public Account findByUsername(@PathVariable String  username) {
+		// TODO Auto-generated method stub
+		return accountRepository.findByUsername(username);
+	}
+	
+	@PutMapping("/springdemo/hr/account/save")
+	public Account saveAll(@RequestBody Account account) {
+		// TODO Auto-generated method stub
+		return accountRepository.save(account);
+	}
+	@PostMapping("/springdemo/hr/account/update")
+	public Account updateAccount(@RequestBody Account account) {
+		// TODO Auto-generated method stub
+		return accountRepository.save(account);
 	}
 
 	/* (non-Javadoc)

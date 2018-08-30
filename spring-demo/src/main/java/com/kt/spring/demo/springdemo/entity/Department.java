@@ -16,31 +16,24 @@ public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="DEPARTMENTS_DEPARTMENTID_GENERATOR", sequenceName="DEPARTMENTS_SEQ")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="DEPARTMENTS_DEPARTMENTID_GENERATOR")
-	@Column(name="DEPARTMENT_ID", unique=true, nullable=false, precision=4)
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="DEPARTMENT_ID")
 	private long departmentId;
 
-	@Column(name="DEPARTMENT_NAME", nullable=false, length=30)
+	@Column(name="DEPARTMENT_NAME")
 	private String departmentName;
 
+	@Column(name="LOCATION_ID")
+	private java.math.BigDecimal locationId;
+
 	//bi-directional many-to-one association to Employee
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="MANAGER_ID")
 	private Employee employee;
-
-	//bi-directional many-to-one association to Location
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="LOCATION_ID")
-	private Location location;
 
 	//bi-directional many-to-one association to Employee
 	@OneToMany(mappedBy="department")
 	private List<Employee> employees;
-
-	//bi-directional many-to-one association to JobHistory
-	@OneToMany(mappedBy="department")
-	private List<JobHistory> jobHistories;
 
 	public Department() {
 	}
@@ -61,20 +54,20 @@ public class Department implements Serializable {
 		this.departmentName = departmentName;
 	}
 
+	public java.math.BigDecimal getLocationId() {
+		return this.locationId;
+	}
+
+	public void setLocationId(java.math.BigDecimal locationId) {
+		this.locationId = locationId;
+	}
+
 	public Employee getEmployee() {
 		return this.employee;
 	}
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
-	}
-
-	public Location getLocation() {
-		return this.location;
-	}
-
-	public void setLocation(Location location) {
-		this.location = location;
 	}
 
 	public List<Employee> getEmployees() {
@@ -97,28 +90,6 @@ public class Department implements Serializable {
 		employee.setDepartment(null);
 
 		return employee;
-	}
-
-	public List<JobHistory> getJobHistories() {
-		return this.jobHistories;
-	}
-
-	public void setJobHistories(List<JobHistory> jobHistories) {
-		this.jobHistories = jobHistories;
-	}
-
-	public JobHistory addJobHistory(JobHistory jobHistory) {
-		getJobHistories().add(jobHistory);
-		jobHistory.setDepartment(this);
-
-		return jobHistory;
-	}
-
-	public JobHistory removeJobHistory(JobHistory jobHistory) {
-		getJobHistories().remove(jobHistory);
-		jobHistory.setDepartment(null);
-
-		return jobHistory;
 	}
 
 }

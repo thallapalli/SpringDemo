@@ -15,5 +15,6 @@ import com.kt.spring.demo.springdemo.entity.Account;
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
 	Account findByUsername(String username);
+	Account findByUsernameAndPassword(String username, String password);
 	
 }

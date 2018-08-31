@@ -1,6 +1,7 @@
 package com.kt.spring.demo.springdemo.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,6 +56,12 @@ public class SpringDemoController {
 	public Account findByUsername(@PathVariable String  username) {
 		// TODO Auto-generated method stub
 		return accountRepository.findByUsername(username);
+	}
+	@GetMapping("/springdemo/hr/account/findByusernameandpassword")
+	public Account findByUsernameAndPassword(@RequestParam Map<String,String> mapOfRequest) {
+		// TODO Auto-generated method stub
+		
+		return accountRepository.findByUsernameAndPassword(mapOfRequest.get("username"),mapOfRequest.get("password"));
 	}
 	
 	@PutMapping("/springdemo/hr/account/save")

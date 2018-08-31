@@ -2,6 +2,10 @@ package com.kt.spring.demo.springdemo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.util.List;
 
 
@@ -24,7 +28,8 @@ public class Account implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Role
-	@OneToMany(mappedBy="account")
+	@OneToMany(mappedBy="account",fetch = FetchType.EAGER)
+	
 	private List<Role> roles;
 
 	public Account() {

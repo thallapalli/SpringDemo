@@ -1,9 +1,10 @@
 package com.kt.spring.demo.springdemo.controller;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +24,8 @@ import com.kt.spring.demo.springdemo.repository.DepartmentRepository;
 
 @RestController
 public class SpringDemoController {
+	Logger logger = LoggerFactory.getLogger(SpringDemoController.class);
+	
 	@Autowired
 	DepartmentRepository departmentRepository;
 	@Autowired
@@ -57,11 +59,13 @@ public class SpringDemoController {
 		// TODO Auto-generated method stub
 		return accountRepository.findByUsername(username);
 	}
-	@GetMapping("/springdemo/hr/account/findByusernameandpassword")
-	public Account findByUsernameAndPassword(@RequestParam Map<String,String> mapOfRequest) {
+	//@GetMapping("/springdemo/hr/account/findByusernameandpassword")
+	@GetMapping("/springdemo/hr/account/{username}/{password}/findByusernameandpassword")
+	//public Account findByUsernameAndPassword(@RequestParam Map<String,String> mapOfRequest) {
+	public Account findByUsernameAndPassword(@PathVariable String username,@PathVariable  String password) {
 		// TODO Auto-generated method stub
-		
-		return accountRepository.findByUsernameAndPassword(mapOfRequest.get("username"),mapOfRequest.get("password"));
+		return accountRepository.findByUsernameAndPassword(username,password);
+		//return accountRepository.findByUsernameAndPassword(mapOfRequest.get("username"),mapOfRequest.get("password"));
 	}
 	
 	@PutMapping("/springdemo/hr/account/save")

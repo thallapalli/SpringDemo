@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="spring-demo" transaction-type="RESOURCE_LOCAL">
-		<class>com.kt.spring.demo.springdemo.entity.Account</class>
 		<class>com.kt.spring.demo.springdemo.entity.Department</class>
 		<class>com.kt.spring.demo.springdemo.entity.Employee</class>
+		<class>com.kt.spring.demo.springdemo.entity.Account</class>
+		<class>com.kt.spring.demo.springdemo.entity.Role</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
 			<property name="javax.persistence.jdbc.user" value="hr"/>

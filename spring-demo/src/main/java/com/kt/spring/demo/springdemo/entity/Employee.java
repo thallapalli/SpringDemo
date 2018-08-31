@@ -2,65 +2,67 @@ package com.kt.spring.demo.springdemo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
 
 /**
  * The persistent class for the EMPLOYEES database table.
  * 
  */
 @Entity
-@Table(name="EMPLOYEES")
-@NamedQuery(name="Employee.findAll", query="SELECT e FROM Employee e")
+@Table(name = "EMPLOYEES")
+@NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
 public class Employee implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="EMPLOYEE_ID")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "EMPLOYEE_ID")
 	private long employeeId;
 
-	@Column(name="COMMISSION_PCT")
+	@Column(name = "COMMISSION_PCT")
 	private BigDecimal commissionPct;
 
 	private String email;
 
-	@Column(name="FIRST_NAME")
+	@Column(name = "FIRST_NAME")
 	private String firstName;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="HIRE_DATE")
+	@Column(name = "HIRE_DATE")
 	private Date hireDate;
 
-	@Column(name="JOB_ID")
+	@Column(name = "JOB_ID")
 	private String jobId;
 
-	@Column(name="LAST_NAME")
+	@Column(name = "LAST_NAME")
 	private String lastName;
 
-	@Column(name="PHONE_NUMBER")
+	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
 
 	private BigDecimal salary;
 
-	//bi-directional many-to-one association to Department
-	@OneToMany(mappedBy="employee")
+	// bi-directional many-to-one association to Department
+	@OneToMany(mappedBy = "employee")
 	private List<Department> departments;
 
-	//bi-directional many-to-one association to Department
+	// bi-directional many-to-one association to Department
 	@ManyToOne
-	@JoinColumn(name="DEPARTMENT_ID")
+	@JoinColumn(name = "DEPARTMENT_ID")
 	private Department department;
 
-	//bi-directional many-to-one association to Employee
+	// bi-directional many-to-one association to Employee
 	@ManyToOne
-	@JoinColumn(name="MANAGER_ID")
+	@JoinColumn(name = "MANAGER_ID")
 	private Employee employee;
 
-	//bi-directional many-to-one association to Employee
-	@OneToMany(mappedBy="employee")
+	// bi-directional many-to-one association to Employee
+	@OneToMany(mappedBy = "employee")
 	private List<Employee> employees;
 
 	public Employee() {
@@ -159,7 +161,7 @@ public class Employee implements Serializable {
 
 		return department;
 	}
-
+	@JsonIgnore
 	public Department getDepartment() {
 		return this.department;
 	}
@@ -168,6 +170,7 @@ public class Employee implements Serializable {
 		this.department = department;
 	}
 
+	
 	public Employee getEmployee() {
 		return this.employee;
 	}

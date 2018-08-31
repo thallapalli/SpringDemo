@@ -2,6 +2,7 @@ package com.kt.spring.demo.springdemo.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -15,21 +16,26 @@ public class Account implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	@Column(name="USER_ID")
+	private long userId;
 
 	private String password;
 
 	private String username;
 
+	//bi-directional many-to-one association to Role
+	@OneToMany(mappedBy="account")
+	private List<Role> roles;
+
 	public Account() {
 	}
 
-	public long getId() {
-		return this.id;
+	public long getUserId() {
+		return this.userId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public String getPassword() {
@@ -46,6 +52,28 @@ public class Account implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public List<Role> getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public Role addRole(Role role) {
+		getRoles().add(role);
+		role.setAccount(this);
+
+		return role;
+	}
+
+	public Role removeRole(Role role) {
+		getRoles().remove(role);
+		role.setAccount(null);
+
+		return role;
 	}
 
 }

@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kt.spring.demo.springdemo.entity.Account;
 import com.kt.spring.demo.springdemo.entity.Department;
+import com.kt.spring.demo.springdemo.entity.Hero;
 import com.kt.spring.demo.springdemo.repository.AccountRepository;
 import com.kt.spring.demo.springdemo.repository.DepartmentRepository;
+import com.kt.spring.demo.springdemo.repository.HeroRepository;
 
 
 
@@ -30,6 +32,8 @@ public class SpringDemoController {
 	DepartmentRepository departmentRepository;
 	@Autowired
 	AccountRepository accountRepository;
+	@Autowired
+	HeroRepository heroRepository;
 	@PutMapping("/springdemo/hr/department/save")
 	public Department saveDepartment(@RequestBody Department department) {
 		// TODO Auto-generated method stub
@@ -95,6 +99,11 @@ public class SpringDemoController {
 	public Iterable<Department> findAll() {
 		// TODO Auto-generated method stub
 		return departmentRepository.findAll();
+	}
+	@GetMapping("/springdemo/hr/heros/all")
+	public Iterable<Hero> findAllHeros() {
+		// TODO Auto-generated method stub
+		return heroRepository.findAll();
 	}
 
 	/* (non-Javadoc)

@@ -26,8 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    
+    protected void configure1(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                     .antMatchers("/resources/**", "/registration").permitAll()
@@ -40,8 +40,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .permitAll();
     }
+    
 
-    @Autowired
+    /* (non-Javadoc)
+	 * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.web.builders.HttpSecurity)
+	 */
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		// TODO Auto-generated method stub
+		http.authorizeRequests().antMatchers("/").permitAll();
+	}
+
+
+	@Autowired
    
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(noOpPasswordEncoder());
